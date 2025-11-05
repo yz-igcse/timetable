@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yusuf's GCSE Revision Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #FAFAFA;
+            --bg-secondary: #FFFFFF;
+            --bg-tertiary: #F3F4F6;
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --accent-blue: #2563EB;
+            --accent-green: #059669;
+            --accent-yellow: #D97706;
+            --accent-red: #DC2626;
+            --border: #E5E7EB;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2563EB 0%, #06B6D4 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            color: white;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-blue);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--accent-blue);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: var(--bg-tertiary);
+            border-color: var(--accent-blue);
+        }
+
+        .tab-btn.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .day-section {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .day-title {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .day-progress {
+            font-size: 1.1em;
+            color: var(--accent-green);
+        }
+
+        .session {
+            background: var(--bg-tertiary);
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-blue);
+            transition: all 0.3s;
+        }
+
+        .session:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 2px 4px rgba(0,0,0,0.06);
+        }
+
+        .session.completed {
+            opacity: 0.6;
+            border-left-color: var(--accent-green);
+        }
+
+        .session.rest {
+            border-left-color: var(--accent-yellow);
+            background: rgba(217, 119, 6, 0.05);
+        }
+
+        .session-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .session-time {
+            font-weight: bold;
+            color: var(--accent-blue);
+            font-size: 1.1em;
+        }
+
+        .session-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .session-notes {
+            color: var(--text-secondary);
+            font-size: 0.95em;
+        }
+
+        .priority-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .priority-high {
+            background: rgba(220, 38, 38, 0.1);
+            color: #B91C1C;
+            border: 1px solid #DC2626;
+        }
+
+        .priority-medium {
+            background: rgba(217, 119, 6, 0.1);
+            color: #92400E;
+            border: 1px solid #D97706;
+        }
+
+        .priority-low {
+            background: rgba(5, 150, 105, 0.1);
+            color: #065F46;
+            border: 1px solid #059669;
+        }
+
+        .subject-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 8px;
+        }
+
+        .subject-greek { background: rgba(220, 38, 38, 0.1); color: #B91C1C; border: 1px solid #DC2626; }
+        .subject-maths { background: rgba(220, 38, 38, 0.1); color: #B91C1C; border: 1px solid #DC2626; }
+        .subject-chemistry { background: rgba(220, 38, 38, 0.1); color: #B91C1C; border: 1px solid #DC2626; }
+        .subject-geography { background: rgba(217, 119, 6, 0.1); color: #92400E; border: 1px solid #D97706; }
+        .subject-latin { background: rgba(217, 119, 6, 0.1); color: #92400E; border: 1px solid #D97706; }
+        .subject-english { background: rgba(217, 119, 6, 0.1); color: #92400E; border: 1px solid #D97706; }
+        .subject-biology { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
+        .subject-physics { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
+        .subject-philosophy { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            accent-color: var(--accent-green);
+        }
+
+        .study-log {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .log-entry {
+            background: var(--bg-tertiary);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        .log-date {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .quick-add {
+            margin-top: 15px;
+        }
+
+        .quick-add textarea {
+            width: 100%;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .quick-add button {
+            margin-top: 10px;
+            padding: 12px 24px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quick-add button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        .weekly-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .week-day-card {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .week-day-card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .week-day-card h4 {
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .alert {
+            background: rgba(220, 38, 38, 0.05);
+            border-left: 4px solid var(--accent-red);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(220, 38, 38, 0.2);
+        }
+
+        .alert h3 {
+            color: #B91C1C;
+            margin-bottom: 8px;
+        }
+
+        .info-box {
+            background: rgba(37, 99, 235, 0.05);
+            border-left: 4px solid var(--accent-blue);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(37, 99, 235, 0.2);
+        }
+
+        .info-box h3 {
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+        }
+
+        .timer-section {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+        }
+
+        .timer-display {
+            font-size: 4em;
+            font-weight: bold;
+            color: var(--accent-blue);
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .timer-btn {
+            padding: 15px 30px;
+            background: var(--accent-blue);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .timer-btn:hover {
+            background: #2563eb;
+            transform: scale(1.05);
+        }
+
+        .timer-btn.reset {
+            background: var(--accent-red);
+        }
+
+        .timer-btn.reset:hover {
+            background: #dc2626;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .day-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .session-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .timer-display {
+                font-size: 3em;
+            }
+        }
+
+        .export-btn {
+            padding: 12px 24px;
+            background: var(--accent-green);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .export-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Yusuf's GCSE Revision Hub</h1>
+            <div class="header-subtitle">Year 11 | King Edward's School Birmingham | Target: Grade 9s in Sciences & Maths</div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Days Until GCSEs</h3>
+                <div class="value" id="days-remaining">195</div>
+            </div>
+            <div class="stat-card">
+                <h3>This Week's Progress</h3>
+                <div class="value" id="week-progress">0%</div>
+            </div>
+            <div class="stat-card">
+                <h3>Study Streak</h3>
+                <div class="value" id="study-streak">0 days</div>
+            </div>
+            <div class="stat-card">
+                <h3>Total Sessions Done</h3>
+                <div class="value" id="total-sessions">0</div>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('today')">📅 Today</button>
+            <button class="tab-btn" onclick="switchTab('week')">📆 This Week</button>
+            <button class="tab-btn" onclick="switchTab('subjects')">📚 Subject Tracker</button>
+            <button class="tab-btn" onclick="switchTab('timer')">⏱️ Study Timer</button>
+            <button class="tab-btn" onclick="switchTab('log')">📝 Study Log</button>
+            <button class="tab-btn" onclick="switchTab('priorities')">🎯 Priorities</button>
+        </div>
+
+        <!-- TODAY TAB -->
+        <div id="today-tab" class="tab-content active">
+            <div class="alert">
+                <h3>⚠️ Protected Rest Period</h3>
+                <p><strong>17:30-18:30 every day is your sacred rest hour.</strong> No study during this time - dinner, relax, decompress. This is non-negotiable for sustainable performance!</p>
+            </div>
+
+            <div id="today-schedule">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- WEEKLY OVERVIEW TAB -->
+        <div id="week-tab" class="tab-content">
+            <div class="info-box">
+                <h3>📊 Weekly Summary</h3>
+                <p><strong>Total Target: 19 hours study</strong> | Mon: 1.5hrs | Tue: 1hr (recovery) | Wed: 2hrs | Thu: 2hrs | Fri: 2hrs | Sat: 5.5hrs | Sun: 5hrs</p>
+            </div>
+
+            <div class="weekly-overview" id="weekly-overview">
+                <!-- Dynamically populated -->
+            </div>
+
+            <div id="full-week-schedule">
+                <!-- All days shown here -->
+            </div>
+        </div>
+
+        <!-- SUBJECT TRACKER TAB -->
+        <div id="subjects-tab" class="tab-content">
+            <div class="info-box">
+                <h3>📚 Weekly Subject Coverage Tracker</h3>
+                <p>Track that all 11 subjects receive appropriate weekly attention. Check off sessions as you complete them to see your coverage!</p>
+            </div>
+
+            <div id="subject-tracker-grid">
+                <!-- Dynamically populated by JavaScript -->
+            </div>
+
+            <div class="day-section" style="margin-top: 30px;">
+                <h2>📊 Subject Distribution This Week</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Total study sessions by subject (excluding light morning reviews)</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                    <div class="stat-card" style="border-left-color: #DC2626;">
+                        <h3>🔴 Greek</h3>
+                        <div class="value" style="color: #DC2626;" id="greek-count">0/5</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #DC2626;">
+                        <h3>🔴 Maths</h3>
+                        <div class="value" style="color: #DC2626;" id="maths-count">0/5</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #DC2626;">
+                        <h3>🔴 Chemistry</h3>
+                        <div class="value" style="color: #DC2626;" id="chemistry-count">0/5</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #D97706;">
+                        <h3>🟠 Geography</h3>
+                        <div class="value" style="color: #D97706;" id="geography-count">0/3</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #D97706;">
+                        <h3>🟠 Latin</h3>
+                        <div class="value" style="color: #D97706;" id="latin-count">0/3</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #D97706;">
+                        <h3>🟠 English</h3>
+                        <div class="value" style="color: #D97706;" id="english-count">0/3</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #059669;">
+                        <h3>🟢 Biology</h3>
+                        <div class="value" style="color: #059669;" id="biology-count">0/1</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #059669;">
+                        <h3>🟢 Physics</h3>
+                        <div class="value" style="color: #059669;" id="physics-count">0/1</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #059669;">
+                        <h3>🟢 Philosophy</h3>
+                        <div class="value" style="color: #059669;" id="philosophy-count">0/1</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="alert" style="margin-top: 30px;">
+                <h3>⚠️ Weekly Coverage Goals</h3>
+                <p><strong>🔴 High Priority:</strong> Greek, Maths, Chemistry - 5 sessions each (4-5 hours)</p>
+                <p><strong>🟠 Medium Priority:</strong> Geography, Latin, English - 3 sessions each (2-3 hours)</p>
+                <p><strong>🟢 Maintenance:</strong> Biology, Physics, Philosophy - 1 session each (1 hour)</p>
+                <p style="margin-top: 10px;"><strong>Total: 27 sessions across 9 subjects</strong> (PE has no academic sessions)</p>
+            </div>
+        </div>
+
+        <!-- TIMER TAB -->
+        <div id="timer-tab" class="tab-content">
+            <div class="timer-section">
+                <h2>🎯 Pomodoro Study Timer</h2>
+                <p style="margin: 15px 0; color: var(--text-secondary);">Focus for 45 minutes, then take a 10-minute break</p>
+                
+                <div class="timer-display" id="timer-display">45:00</div>
+                
+                <div class="timer-controls">
+                    <button class="timer-btn" onclick="startTimer()">▶️ Start</button>
+                    <button class="timer-btn" onclick="pauseTimer()">⏸️ Pause</button>
+                    <button class="timer-btn reset" onclick="resetTimer()">🔄 Reset</button>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button class="timer-btn" onclick="setTimer(45)">45 min Study</button>
+                    <button class="timer-btn" onclick="setTimer(60)">60 min Study</button>
+                    <button class="timer-btn" onclick="setTimer(10)">10 min Break</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- STUDY LOG TAB -->
+        <div id="log-tab" class="tab-content">
+            <div class="study-log">
+                <h2>📝 Study Log & Reflections</h2>
+                <p style="color: var(--text-secondary); margin-bottom: 20px;">Track how sessions went, note difficult topics, celebrate wins!</p>
+
+                <div class="quick-add">
+                    <textarea id="log-input" placeholder="How did today's session go? What did you learn? What needs more work?"></textarea>
+                    <button onclick="addLogEntry()">💾 Add Entry</button>
+                </div>
+
+                <div id="log-entries" style="margin-top: 30px;">
+                    <!-- Log entries appear here -->
+                </div>
+
+                <button class="export-btn" onclick="exportLog()">📤 Export Log as Text</button>
+            </div>
+        </div>
+
+        <!-- PRIORITIES TAB -->
+        <div id="priorities-tab" class="tab-content">
+            <div class="day-section">
+                <h2>🎯 Subject Priorities & Targets</h2>
+                
+                <h3 style="color: var(--accent-red); margin: 20px 0;">🔴 HIGH PRIORITY (Need Most Support)</h3>
+                <div class="session">
+                    <div class="session-title">Greek <span class="priority-badge priority-high">Critical</span></div>
+                    <div class="session-notes"><strong>Current: Grade 5 → Target: Grade 8-9</strong></div>
+                    <div class="session-notes">• 3 translation exercises per week</div>
+                    <div class="session-notes">• 50-100 new vocabulary words weekly</div>
+                    <div class="session-notes">• Grammar drills: cases, verbs, syntax</div>
+                </div>
+
+                <div class="session">
+                    <div class="session-title">Mathematics <span class="priority-badge priority-high">Critical</span></div>
+                    <div class="session-notes"><strong>Current: Grade 6 → Target: Grade 9</strong></div>
+                    <div class="session-notes">• 1 full past paper weekly (timed)</div>
+                    <div class="session-notes">• 2 topic-focused practice sessions</div>
+                    <div class="session-notes">• Drill weak areas: algebra, geometry, etc.</div>
+                </div>
+
+                <div class="session">
+                    <div class="session-title">Chemistry <span class="priority-badge priority-high">Critical</span></div>
+                    <div class="session-notes"><strong>Current: Grade 7 → Target: Grade 9</strong></div>
+                    <div class="session-notes">• 1 full past paper weekly</div>
+                    <div class="session-notes">• 2 concept review + practice sessions</div>
+                    <div class="session-notes">• Focus on calculations and equation balancing</div>
+                </div>
+
+                <h3 style="color: var(--accent-yellow); margin: 30px 0 20px;">🟠 MEDIUM PRIORITY (Steady Improvement)</h3>
+                <div class="session">
+                    <div class="session-title">Geography <span class="priority-badge priority-medium">Steady</span></div>
+                    <div class="session-notes"><strong>Current: Grade 7 → Target: Grade 8-9</strong></div>
+                    <div class="session-notes">• 1 case study per week</div>
+                    <div class="session-notes">• 1 set of past paper questions</div>
+                </div>
+
+                <div class="session">
+                    <div class="session-title">Latin <span class="priority-badge priority-medium">Steady</span></div>
+                    <div class="session-notes"><strong>Current: Grade 7 → Target: Grade 8-9</strong></div>
+                    <div class="session-notes">• 2 translation exercises weekly</div>
+                    <div class="session-notes">• 30-50 vocabulary words weekly</div>
+                </div>
+
+                <h3 style="color: var(--accent-green); margin: 30px 0 20px;">🟢 MAINTAIN EXCELLENCE</h3>
+                <div class="session">
+                    <div class="session-title">Biology, Physics, Philosophy <span class="priority-badge priority-low">Maintain 9</span></div>
+                    <div class="session-notes"><strong>Current: Grade 9 → Maintain Grade 9</strong></div>
+                    <div class="session-notes">• 1 past paper OR topic review fortnightly</div>
+                    <div class="session-notes">• Light maintenance - already strong</div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 20px;">
+                <h3>⏰ Weekly Time Allocation</h3>
+                <p><strong>Greek:</strong> 4.5 hours | <strong>Maths:</strong> 4 hours | <strong>Chemistry:</strong> 3.5 hours</p>
+                <p><strong>Geography:</strong> 2 hours | <strong>Latin:</strong> 2 hours | <strong>Sciences/Others:</strong> 3 hours</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DATA STRUCTURE - All 11 subjects covered
+        const weekSchedule = {
+            monday: [
+                { time: '06:45-07:30', title: 'GREEK Vocabulary (Bus)', subject: 'Greek', type: 'light', priority: 'high', notes: 'Flashcards: 15-20 new words, review 30 old words' },
+                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
+                { time: '18:30-19:30', title: 'Personal Lesson', subject: '', type: 'study', priority: 'high', notes: 'As scheduled with tutor' },
+                { time: '19:30-20:30', title: 'MATHS Problem-Solving', subject: 'Maths', type: 'study', priority: 'high', notes: 'Focus: Algebra, geometry, or current weak topic' },
+                { time: '20:30-21:00', title: 'CHEMISTRY Quick Review', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Flashcards: equations, definitions, key concepts' },
+                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Gaming, TV, social media - relax!' }
+            ],
+            tuesday: [
+                { time: '06:45-07:30', title: 'LATIN Vocabulary (Bus)', subject: 'Latin', type: 'light', priority: 'medium', notes: 'Flashcards: 10-15 new words, cases review' },
+                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
+                { time: '18:00-20:00', title: 'Out (Return ~20:00)', subject: '', type: 'rest', priority: 'low', notes: 'As scheduled' },
+                { time: '20:00-21:00', title: 'ENGLISH LANGUAGE Reading', subject: 'English', type: 'study', priority: 'medium', notes: 'Article analysis, language techniques, or quick essay plan' },
+                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Relax - this is RECOVERY DAY' }
+            ],
+            wednesday: [
+                { time: '06:45-07:30', title: 'ENGLISH Reading (Bus)', subject: 'English', type: 'light', priority: 'medium', notes: 'Literature quotes, poetry analysis, or article' },
+                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
+                { time: '18:30-19:30', title: 'CHEMISTRY Past Questions', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Topic-specific practice: calculations, equations, theory' },
+                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, walk, phone' },
+                { time: '20:00-21:00', title: 'GEOGRAPHY Case Study', subject: 'Geography', type: 'study', priority: 'medium', notes: 'One case study in depth OR past paper questions' },
+                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Gaming, TV, social' }
+            ],
+            thursday: [
+                { time: '06:45-07:30', title: 'MATHS Quick Problems (Bus)', subject: 'Maths', type: 'light', priority: 'high', notes: '3-5 problems from current topic' },
+                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
+                { time: '18:30-19:30', title: 'GREEK Translation Practice', subject: 'Greek', type: 'study', priority: 'high', notes: 'Unseen passage + grammar exercises (aorist, cases, etc.)' },
+                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, stretch, brief walk' },
+                { time: '20:00-21:00', title: 'BIOLOGY Topic Review', subject: 'Biology', type: 'study', priority: 'low', notes: 'One topic: past questions + mark scheme analysis' },
+                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Relaxation time' }
+            ],
+            friday: [
+                { time: '06:45-07:30', title: 'PHILOSOPHY Concepts (Bus)', subject: 'Philosophy', type: 'light', priority: 'low', notes: 'Review key arguments, philosophers, or essay structures' },
+                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
+                { time: '18:30-19:30', title: 'MATHS Timed Practice', subject: 'Maths', type: 'study', priority: 'high', notes: 'Past paper section OR full paper (timed conditions)' },
+                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Wind-down for weekend' },
+                { time: '20:00-21:00', title: 'PHYSICS Past Questions', subject: 'Physics', type: 'study', priority: 'low', notes: 'One topic: calculations, theory, maintain grade 9' },
+                { time: '21:00-23:00', title: '🎉 Extended Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Social, gaming, movie - proper Friday night!' }
+            ],
+            saturday: [
+                { time: '09:30-11:00', title: 'PRIORITY Full Past Paper', subject: 'Chemistry/Maths', type: 'study', priority: 'high', notes: 'Week A: Chemistry full paper | Week B: Maths full paper (TIMED)' },
+                { time: '11:00-11:30', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, walk outside, stretch' },
+                { time: '11:30-13:00', title: 'PRIORITY Mark + Improve', subject: 'Chemistry/Maths', type: 'study', priority: 'high', notes: 'Week A: Mark Maths practice | Week B: Mark Chemistry, redo wrong answers' },
+                { time: '13:00-14:30', title: '🍽️ Lunch + Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Proper break - eat, relax, phone, short walk' },
+                { time: '14:30-16:00', title: 'GREEK/LATIN Translation', subject: 'Greek/Latin', type: 'study', priority: 'high', notes: 'Week A: Greek unseen + grammar | Week B: Latin unseen + vocabulary' },
+                { time: '16:00-17:30', title: '🎮 Protected Downtime', subject: '', type: 'rest', priority: 'low', notes: 'Sports, gaming, social - completely free' },
+                { time: '17:30-18:30', title: 'GEOGRAPHY Revision', subject: 'Geography', type: 'study', priority: 'medium', notes: 'Map skills, case study notes, or past paper practice' },
+                { time: '18:30-22:00', title: '🌙 Evening OFF', subject: '', type: 'rest', priority: 'low', notes: 'Family, social, TV, gaming - NO STUDY' }
+            ],
+            sunday: [
+                { time: '09:30-11:00', title: 'WEAKEST SUBJECT Focus', subject: 'Greek/Maths/Latin', type: 'study', priority: 'high', notes: 'Current weakest: intensive practice on problem areas' },
+                { time: '11:00-11:30', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, stretch' },
+                { time: '11:30-13:00', title: 'ENGLISH Essay Practice', subject: 'English', type: 'study', priority: 'medium', notes: 'Language OR Literature: plan essay, analyze extract, quotes practice' },
+                { time: '13:00-14:30', title: '🍽️ Lunch + Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Longer lunch break - walk, social, family' },
+                { time: '14:30-15:30', title: 'LATIN Translation', subject: 'Latin', type: 'study', priority: 'medium', notes: 'One unseen passage + vocabulary review' },
+                { time: '15:30-16:30', title: 'CHEMISTRY Topic Drill', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Focus on one weak topic identified this week' },
+                { time: '16:30-17:00', title: 'PHILOSOPHY Essay Plan', subject: 'Philosophy', type: 'study', priority: 'low', notes: 'One essay title: plan structure, key arguments' },
+                { time: '17:00-18:00', title: '📊 Weekly Reflection', subject: '', type: 'planning', priority: 'low', notes: 'Review subject tracker, plan next week adjustments' },
+                { time: '18:00-22:00', title: '🌙 Sunday Evening OFF', subject: '', type: 'rest', priority: 'low', notes: 'STRICTLY NO STUDY - family, rest, prepare for week' }
+            ]
+        };
+
+        // Subject tracking data
+        const subjectTargets = {
+            'Greek': { current: 5, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
+            'Maths': { current: 6, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
+            'Chemistry': { current: 7, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
+            'Geography': { current: 7, target: 9, priority: 'medium', weeklyGoal: 3, sessions: [] },
+            'Latin': { current: 7, target: 9, priority: 'medium', weeklyGoal: 3, sessions: [] },
+            'English': { current: 8, target: 8, priority: 'medium', weeklyGoal: 3, sessions: [] },
+            'Biology': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] },
+            'Physics': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] },
+            'Philosophy': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] }
+        };
+
+        // Get today's day
+        function getTodayDay() {
+            const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+            return days[new Date().getDay()];
+        }
+
+        // Render today's schedule
+        function renderToday() {
+            const today = getTodayDay();
+            const schedule = weekSchedule[today];
+            const container = document.getElementById('today-schedule');
+            
+            const dayName = today.charAt(0).toUpperCase() + today.slice(1);
+            
+            let html = `
+                <div class="day-section">
+                    <div class="day-header">
+                        <div class="day-title">${dayName}</div>
+                        <div class="day-progress" id="today-progress">0% Complete</div>
+                    </div>
+            `;
+
+            schedule.forEach((session, index) => {
+                const sessionId = `${today}-${index}`;
+                const isCompleted = isSessionCompleted(sessionId);
+                const completedClass = isCompleted ? 'completed' : '';
+                const typeClass = session.type === 'rest' ? 'rest' : '';
+                
+                // Add subject badge if present
+                let subjectBadge = '';
+                if (session.subject) {
+                    const subjectClass = session.subject.toLowerCase().replace(/\//g, '-').replace(/ /g, '-');
+                    subjectBadge = `<span class="subject-badge subject-${subjectClass}">${session.subject}</span>`;
+                }
+                
+                html += `
+                    <div class="session ${completedClass} ${typeClass}">
+                        <div class="session-header">
+                            <div>
+                                <div class="session-time">${session.time}</div>
+                                <div class="session-title">${subjectBadge}${session.title}</div>
+                            </div>
+                            <div class="checkbox-container">
+                                <input type="checkbox" 
+                                       id="${sessionId}" 
+                                       ${isCompleted ? 'checked' : ''}
+                                       onchange="toggleSession('${sessionId}', '${today}')">
+                                <label for="${sessionId}">Done</label>
+                            </div>
+                        </div>
+                        <div class="session-notes">${session.notes}</div>
+                    </div>
+                `;
+            });
+
+            html += '</div>';
+            container.innerHTML = html;
+            updateTodayProgress(today);
+        }
+
+        // Render full week
+        function renderWeek() {
+            const container = document.getElementById('full-week-schedule');
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            
+            let html = '';
+            
+            days.forEach(day => {
+                const schedule = weekSchedule[day];
+                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+                
+                html += `
+                    <div class="day-section">
+                        <div class="day-header">
+                            <div class="day-title">${dayName}</div>
+                            <div class="day-progress" id="${day}-progress">0% Complete</div>
+                        </div>
+                `;
+
+                schedule.forEach((session, index) => {
+                    const sessionId = `${day}-${index}`;
+                    const isCompleted = isSessionCompleted(sessionId);
+                    const completedClass = isCompleted ? 'completed' : '';
+                    const typeClass = session.type === 'rest' ? 'rest' : '';
+                    
+                    // Add subject badge if present
+                    let subjectBadge = '';
+                    if (session.subject) {
+                        const subjectClass = session.subject.toLowerCase().replace(/\//g, '-').replace(/ /g, '-');
+                        subjectBadge = `<span class="subject-badge subject-${subjectClass}">${session.subject}</span>`;
+                    }
+                    
+                    html += `
+                        <div class="session ${completedClass} ${typeClass}">
+                            <div class="session-header">
+                                <div>
+                                    <div class="session-time">${session.time}</div>
+                                    <div class="session-title">${subjectBadge}${session.title}</div>
+                                </div>
+                                <div class="checkbox-container">
+                                    <input type="checkbox" 
+                                           id="${sessionId}" 
+                                           ${isCompleted ? 'checked' : ''}
+                                           onchange="toggleSession('${sessionId}', '${day}')">
+                                    <label for="${sessionId}">Done</label>
+                                </div>
+                            </div>
+                            <div class="session-notes">${session.notes}</div>
+                        </div>
+                    `;
+                });
+
+                html += '</div>';
+            });
+
+            container.innerHTML = html;
+            
+            // Update all day progress
+            days.forEach(day => updateTodayProgress(day));
+        }
+
+        // Render weekly overview cards
+        function renderWeeklyOverview() {
+            const container = document.getElementById('weekly-overview');
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            
+            let html = '';
+            
+            days.forEach(day => {
+                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+                const progress = calculateDayProgress(day);
+                
+                html += `
+                    <div class="week-day-card">
+                        <h4>${dayName}</h4>
+                        <div style="font-size: 2em; color: var(--accent-blue); font-weight: bold;">${progress}%</div>
+                        <div style="color: var(--text-secondary); margin-top: 5px;">Complete</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Toggle session completion
+        function toggleSession(sessionId, day) {
+            const checkbox = document.getElementById(sessionId);
+            const trackerCheckbox = document.getElementById(`${sessionId}-tracker`);
+            const sessions = JSON.parse(localStorage.getItem('completedSessions') || '[]');
+            
+            if (checkbox.checked) {
+                if (!sessions.includes(sessionId)) {
+                    sessions.push(sessionId);
+                }
+            } else {
+                const index = sessions.indexOf(sessionId);
+                if (index > -1) {
+                    sessions.splice(index, 1);
+                }
+            }
+            
+            localStorage.setItem('completedSessions', JSON.stringify(sessions));
+            updateTodayProgress(day);
+            updateStats();
+            renderWeeklyOverview();
+            updateSubjectCounts(); // Update subject tracker
+            
+            // Sync checkboxes if both exist
+            if (trackerCheckbox && checkbox) {
+                trackerCheckbox.checked = checkbox.checked;
+            }
+            
+            // Add visual feedback
+            const sessionEl = checkbox.closest('.session');
+            if (sessionEl) {
+                if (checkbox.checked) {
+                    sessionEl.classList.add('completed');
+                } else {
+                    sessionEl.classList.remove('completed');
+                }
+            }
+        }
+
+        // Check if session is completed
+        function isSessionCompleted(sessionId) {
+            const sessions = JSON.parse(localStorage.getItem('completedSessions') || '[]');
+            return sessions.includes(sessionId);
+        }
+
+        // Calculate day progress
+        function calculateDayProgress(day) {
+            const schedule = weekSchedule[day];
+            const studySessions = schedule.filter(s => s.type === 'study');
+            const completed = studySessions.filter((s, index) => 
+                isSessionCompleted(`${day}-${schedule.indexOf(s)}`)
+            );
+            
+            if (studySessions.length === 0) return 0;
+            return Math.round((completed.length / studySessions.length) * 100);
+        }
+
+        // Update today's progress
+        function updateTodayProgress(day) {
+            const progress = calculateDayProgress(day);
+            const progressEl = document.getElementById(`${day}-progress`) || document.getElementById('today-progress');
+            if (progressEl) {
+                progressEl.textContent = `${progress}% Complete`;
+            }
+        }
+
+        // Update stats
+        function updateStats() {
+            // Calculate week progress
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            let totalStudySessions = 0;
+            let completedStudySessions = 0;
+            
+            days.forEach(day => {
+                const schedule = weekSchedule[day];
+                const studySessions = schedule.filter(s => s.type === 'study');
+                totalStudySessions += studySessions.length;
+                
+                studySessions.forEach((s, index) => {
+                    if (isSessionCompleted(`${day}-${schedule.indexOf(s)}`)) {
+                        completedStudySessions++;
+                    }
+                });
+            });
+            
+            const weekProgress = totalStudySessions > 0 ? Math.round((completedStudySessions / totalStudySessions) * 100) : 0;
+            document.getElementById('week-progress').textContent = `${weekProgress}%`;
+            document.getElementById('total-sessions').textContent = completedStudySessions;
+            
+            // Calculate streak
+            const streak = calculateStreak();
+            document.getElementById('study-streak').textContent = `${streak} days`;
+            
+            // Days until GCSEs (approximately May 2026)
+            const gcseDate = new Date('2026-05-15');
+            const today = new Date();
+            const daysRemaining = Math.ceil((gcseDate - today) / (1000 * 60 * 60 * 24));
+            document.getElementById('days-remaining').textContent = daysRemaining;
+        }
+
+        // Calculate study streak
+        function calculateStreak() {
+            const sessions = JSON.parse(localStorage.getItem('completedSessions') || '[]');
+            // Simple implementation - count unique days with completed sessions
+            const uniqueDays = new Set(sessions.map(s => s.split('-')[0]));
+            return uniqueDays.size;
+        }
+
+        // Calculate subject counts
+        function calculateSubjectCounts() {
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            const counts = {
+                'Greek': 0,
+                'Maths': 0,
+                'Chemistry': 0,
+                'Geography': 0,
+                'Latin': 0,
+                'English': 0,
+                'Biology': 0,
+                'Physics': 0,
+                'Philosophy': 0
+            };
+            
+            days.forEach(day => {
+                const schedule = weekSchedule[day];
+                schedule.forEach((session, index) => {
+                    if (session.subject && session.type === 'study') {
+                        const sessionId = `${day}-${index}`;
+                        if (isSessionCompleted(sessionId)) {
+                            // Handle combined subjects in session titles
+                            if (session.subject.includes('/')) {
+                                // Split subjects like "Chemistry/Maths"
+                                session.subject.split('/').forEach(sub => {
+                                    if (counts[sub.trim()] !== undefined) {
+                                        counts[sub.trim()]++;
+                                    }
+                                });
+                            } else if (counts[session.subject]) {
+                                counts[session.subject]++;
+                            }
+                        }
+                    }
+                });
+            });
+            
+            return counts;
+        }
+
+        // Update subject counter displays
+        function updateSubjectCounts() {
+            const counts = calculateSubjectCounts();
+            
+            document.getElementById('greek-count').textContent = `${counts.Greek}/5`;
+            document.getElementById('maths-count').textContent = `${counts.Maths}/5`;
+            document.getElementById('chemistry-count').textContent = `${counts.Chemistry}/5`;
+            document.getElementById('geography-count').textContent = `${counts.Geography}/3`;
+            document.getElementById('latin-count').textContent = `${counts.Latin}/3`;
+            document.getElementById('english-count').textContent = `${counts.English}/3`;
+            document.getElementById('biology-count').textContent = `${counts.Biology}/1`;
+            document.getElementById('physics-count').textContent = `${counts.Physics}/1`;
+            document.getElementById('philosophy-count').textContent = `${counts.Philosophy}/1`;
+        }
+
+        // Render subject tracker grid
+        function renderSubjectTracker() {
+            const container = document.getElementById('subject-tracker-grid');
+            const days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            
+            let html = '<div style="display: grid; gap: 20px;">';
+            
+            days.forEach(day => {
+                const dayName = day.charAt(0).toUpperCase() + day.slice(1);
+                const schedule = weekSchedule[day];
+                const studySessions = schedule.filter(s => s.type === 'study' && s.subject);
+                
+                if (studySessions.length > 0) {
+                    html += `
+                        <div class="day-section">
+                            <h3 style="margin-bottom: 15px; color: var(--accent-blue);">${dayName}</h3>
+                            <div style="display: grid; gap: 10px;">
+                    `;
+                    
+                    studySessions.forEach(session => {
+                        const sessionIndex = schedule.indexOf(session);
+                        const sessionId = `${day}-${sessionIndex}`;
+                        const isCompleted = isSessionCompleted(sessionId);
+                        const completedClass = isCompleted ? 'completed' : '';
+                        
+                        let priorityColor = '#059669';
+                        if (session.priority === 'high') priorityColor = '#DC2626';
+                        if (session.priority === 'medium') priorityColor = '#D97706';
+                        
+                        html += `
+                            <div class="session ${completedClass}" style="border-left-color: ${priorityColor};">
+                                <div class="session-header">
+                                    <div>
+                                        <div class="session-time">${session.time}</div>
+                                        <div class="session-title">
+                                            <strong style="color: ${priorityColor};">${session.subject}:</strong> ${session.title}
+                                        </div>
+                                    </div>
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" 
+                                               id="${sessionId}-tracker" 
+                                               ${isCompleted ? 'checked' : ''}
+                                               onchange="toggleSession('${sessionId}', '${day}')">
+                                        <label for="${sessionId}-tracker">Done</label>
+                                    </div>
+                                </div>
+                                <div class="session-notes">${session.notes}</div>
+                            </div>
+                        `;
+                    });
+                    
+                    html += `
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+            
+            html += '</div>';
+            container.innerHTML = html;
+            updateSubjectCounts();
+        }
+
+        // Tab switching
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            event.target.classList.add('active');
+            
+            // Render content if needed
+            if (tabName === 'week') {
+                renderWeek();
+                renderWeeklyOverview();
+            } else if (tabName === 'subjects') {
+                renderSubjectTracker();
+            }
+        }
+
+        // Study Log functions
+        function addLogEntry() {
+            const input = document.getElementById('log-input');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+            logs.unshift({
+                date: new Date().toISOString(),
+                text: text
+            });
+            
+            localStorage.setItem('studyLogs', JSON.stringify(logs));
+            input.value = '';
+            renderLogs();
+        }
+
+        function renderLogs() {
+            const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+            const container = document.getElementById('log-entries');
+            
+            if (logs.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 40px;">No entries yet. Start logging your study sessions!</p>';
+                return;
+            }
+            
+            let html = '';
+            logs.forEach((log, index) => {
+                const date = new Date(log.date);
+                const dateStr = date.toLocaleDateString('en-GB', { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                
+                html += `
+                    <div class="log-entry">
+                        <div class="log-date">${dateStr}</div>
+                        <div>${log.text}</div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function exportLog() {
+            const logs = JSON.parse(localStorage.getItem('studyLogs') || '[]');
+            let text = 'YUSUF\'S GCSE STUDY LOG\n';
+            text += '='.repeat(50) + '\n\n';
+            
+            logs.forEach(log => {
+                const date = new Date(log.date);
+                text += `[${date.toLocaleString('en-GB')}]\n`;
+                text += `${log.text}\n\n`;
+                text += '-'.repeat(50) + '\n\n';
+            });
+            
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `study-log-${new Date().toISOString().split('T')[0]}.txt`;
+            a.click();
+        }
+
+        // Timer functions
+        let timerInterval;
+        let timeRemaining = 45 * 60; // 45 minutes in seconds
+        let isTimerRunning = false;
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeRemaining / 60);
+            const seconds = timeRemaining % 60;
+            document.getElementById('timer-display').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            
+            isTimerRunning = true;
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                updateTimerDisplay();
+                
+                if (timeRemaining <= 0) {
+                    pauseTimer();
+                    alert('⏰ Time\'s up! Great work - take a break!');
+                    playNotificationSound();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isTimerRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeRemaining = 45 * 60;
+            updateTimerDisplay();
+        }
+
+        function setTimer(minutes) {
+            pauseTimer();
+            timeRemaining = minutes * 60;
+            updateTimerDisplay();
+        }
+
+        function playNotificationSound() {
+            // Simple beep using Web Audio API
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderToday();
+            renderLogs();
+            updateStats();
+            updateTimerDisplay();
+            updateSubjectCounts(); // Initialize subject counts
+        });
+    </script>
+</body>
+</html>
