@@ -245,6 +245,8 @@
         .subject-biology { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
         .subject-physics { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
         .subject-philosophy { background: rgba(5, 150, 105, 0.1); color: #065F46; border: 1px solid #059669; }
+        .subject-various { background: rgba(147, 51, 234, 0.1); color: #6B21A8; border: 1px solid #9333EA; }
+        .subject-homework { background: rgba(147, 51, 234, 0.1); color: #6B21A8; border: 1px solid #9333EA; }
 
         .checkbox-container {
             display: flex;
@@ -507,8 +509,8 @@
         <!-- TODAY TAB -->
         <div id="today-tab" class="tab-content active">
             <div class="alert">
-                <h3>⚠️ Protected Rest Period</h3>
-                <p><strong>17:30-18:30 every day is your sacred rest hour.</strong> No study during this time - dinner, relax, decompress. This is non-negotiable for sustainable performance!</p>
+                <h3>⚠️ Protected Extended Rest Period</h3>
+                <p><strong>17:30-19:00 every day is your extended rest hour.</strong> Flexible for variable arrival times - dinner, relax, decompress. This is non-negotiable for sustainable performance!</p>
             </div>
 
             <div id="today-schedule">
@@ -550,50 +552,56 @@
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                     <div class="stat-card" style="border-left-color: #DC2626;">
                         <h3>🔴 Greek</h3>
-                        <div class="value" style="color: #DC2626;" id="greek-count">0/5</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                        <div class="value" style="color: #DC2626;" id="greek-count">0/4</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 4 sessions</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #DC2626;">
                         <h3>🔴 Maths</h3>
-                        <div class="value" style="color: #DC2626;" id="maths-count">0/5</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                        <div class="value" style="color: #DC2626;" id="maths-count">0/4</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 4 sessions (inc. program)</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #DC2626;">
                         <h3>🔴 Chemistry</h3>
-                        <div class="value" style="color: #DC2626;" id="chemistry-count">0/5</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 5 sessions</div>
+                        <div class="value" style="color: #DC2626;" id="chemistry-count">0/4</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 4 sessions</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #D97706;">
                         <h3>🟠 Geography</h3>
-                        <div class="value" style="color: #D97706;" id="geography-count">0/3</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                        <div class="value" style="color: #D97706;" id="geography-count">0/2</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 2 sessions</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #D97706;">
                         <h3>🟠 Latin</h3>
-                        <div class="value" style="color: #D97706;" id="latin-count">0/3</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                        <div class="value" style="color: #D97706;" id="latin-count">0/2</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 2 sessions</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #D97706;">
                         <h3>🟠 English</h3>
-                        <div class="value" style="color: #D97706;" id="english-count">0/3</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 sessions</div>
+                        <div class="value" style="color: #D97706;" id="english-count">0/2</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 2 sessions (reading + homework)</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-left-color: #D97706;">
+                        <h3>📚 Homework</h3>
+                        <div class="value" style="color: #D97706;" id="homework-count">0/3</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 3 slots (various subjects)</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #059669;">
                         <h3>🟢 Biology</h3>
                         <div class="value" style="color: #059669;" id="biology-count">0/1</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session (alternates w/ Physics)</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #059669;">
                         <h3>🟢 Physics</h3>
                         <div class="value" style="color: #059669;" id="physics-count">0/1</div>
-                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session</div>
+                        <div style="margin-top: 10px; color: var(--text-secondary); font-size: 0.9em;">Target: 1 session (alternates w/ Biology)</div>
                     </div>
                     
                     <div class="stat-card" style="border-left-color: #059669;">
@@ -605,11 +613,13 @@
             </div>
 
             <div class="alert" style="margin-top: 30px;">
-                <h3>⚠️ Weekly Coverage Goals</h3>
-                <p><strong>🔴 High Priority:</strong> Greek, Maths, Chemistry - 5 sessions each (4-5 hours)</p>
-                <p><strong>🟠 Medium Priority:</strong> Geography, Latin, English - 3 sessions each (2-3 hours)</p>
-                <p><strong>🟢 Maintenance:</strong> Biology, Physics, Philosophy - 1 session each (1 hour)</p>
-                <p style="margin-top: 10px;"><strong>Total: 27 sessions across 9 subjects</strong> (PE has no academic sessions)</p>
+                <h3>⚠️ Weekly Coverage Goals (Yusuf's Custom Schedule)</h3>
+                <p><strong>🔴 High Priority:</strong> Greek, Maths (inc. dedicated program), Chemistry - 4 sessions each</p>
+                <p><strong>🟠 Medium Priority:</strong> Geography, Latin, English - 2 sessions each</p>
+                <p><strong>📚 Homework Slots:</strong> 3 slots per week (various subjects as needed)</p>
+                <p><strong>🟢 Maintenance:</strong> Biology/Physics (alternate weekly), Philosophy - 1 session each</p>
+                <p style="margin-top: 10px;"><strong>Total: ~23 sessions | ~21 hours study/week</strong></p>
+                <p style="margin-top: 10px; font-size: 0.9em;">Note: Extended rest hour 17:30-19:00 (flexible arrival). Weekend family visits 18:00+ (Sat: Khala Sadduf, Sun: Amaji house)</p>
             </div>
         </div>
 
@@ -717,81 +727,80 @@
     </div>
 
     <script>
-        // DATA STRUCTURE - All 11 subjects covered
+        // DATA STRUCTURE - Yusuf's Custom Schedule
         const weekSchedule = {
             monday: [
-                { time: '06:45-07:30', title: 'GREEK Vocabulary (Bus)', subject: 'Greek', type: 'light', priority: 'high', notes: 'Flashcards: 15-20 new words, review 30 old words' },
-                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
-                { time: '18:30-19:30', title: 'Personal Lesson', subject: '', type: 'study', priority: 'high', notes: 'As scheduled with tutor' },
-                { time: '19:30-20:30', title: 'MATHS Problem-Solving', subject: 'Maths', type: 'study', priority: 'high', notes: 'Focus: Algebra, geometry, or current weak topic' },
-                { time: '20:30-21:00', title: 'CHEMISTRY Quick Review', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Flashcards: equations, definitions, key concepts' },
+                { time: '06:45-07:30', title: 'Light Reading/Vocab (Bus)', subject: 'English/Greek', type: 'light', priority: 'medium', notes: 'English reading OR Greek vocab - whatever feels right' },
+                { time: '17:30-19:00', title: '🏠 Extended Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Flexible arrival time, dinner, relax, decompress - NO STUDY' },
+                { time: '19:00-19:30', title: 'Personal Lesson', subject: '', type: 'study', priority: 'high', notes: 'As scheduled with tutor' },
+                { time: '19:30-21:00', title: 'MATHS Program (Dedicated)', subject: 'Maths', type: 'study', priority: 'high', notes: 'Follow your specific maths program/resource - 1.5 hours focused work' },
                 { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Gaming, TV, social media - relax!' }
             ],
             tuesday: [
-                { time: '06:45-07:30', title: 'LATIN Vocabulary (Bus)', subject: 'Latin', type: 'light', priority: 'medium', notes: 'Flashcards: 10-15 new words, cases review' },
-                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
-                { time: '18:00-20:00', title: 'Out (Return ~20:00)', subject: '', type: 'rest', priority: 'low', notes: 'As scheduled' },
-                { time: '20:00-21:00', title: 'ENGLISH LANGUAGE Reading', subject: 'English', type: 'study', priority: 'medium', notes: 'Article analysis, language techniques, or quick essay plan' },
-                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Relax - this is RECOVERY DAY' }
+                { time: '06:45-07:30', title: 'Light Reading (Bus)', subject: 'English', type: 'light', priority: 'medium', notes: 'English reading - articles, novel, poetry' },
+                { time: '17:30-19:00', title: '🏠 Extended Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Flexible arrival time, dinner, relax - NO STUDY' },
+                { time: '18:00-20:00', title: 'Out (Return ~20:00)', subject: '', type: 'rest', priority: 'low', notes: 'As scheduled - overlaps with rest hour' },
+                { time: '20:00-21:00', title: 'HOMEWORK Slot', subject: 'Various', type: 'study', priority: 'medium', notes: 'English homework (30-45 min note-making this week) OR other subject homework' },
+                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Relax - recovery day' }
             ],
             wednesday: [
-                { time: '06:45-07:30', title: 'ENGLISH Reading (Bus)', subject: 'English', type: 'light', priority: 'medium', notes: 'Literature quotes, poetry analysis, or article' },
-                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
-                { time: '18:30-19:30', title: 'CHEMISTRY Past Questions', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Topic-specific practice: calculations, equations, theory' },
-                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, walk, phone' },
-                { time: '20:00-21:00', title: 'GEOGRAPHY Case Study', subject: 'Geography', type: 'study', priority: 'medium', notes: 'One case study in depth OR past paper questions' },
-                { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Gaming, TV, social' }
+                { time: '06:45-07:30', title: 'Light Vocab Practice (Bus)', subject: 'Latin', type: 'light', priority: 'medium', notes: 'Latin vocabulary - 10-15 new words, review cases' },
+                { time: '17:30-19:00', title: '🏠 Extended Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Flexible arrival time, dinner, relax - NO STUDY' },
+                { time: '19:00-20:00', title: 'CHEMISTRY Past Questions', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Topic-specific practice: calculations, equations, theory' },
+                { time: '20:00-20:15', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, walk, stretch' },
+                { time: '20:15-21:30', title: 'HOMEWORK Slot', subject: 'Various', type: 'study', priority: 'medium', notes: 'Geography/Latin/other subject homework - 1-1.5 hours' },
+                { time: '21:30-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Wind down' }
             ],
             thursday: [
-                { time: '06:45-07:30', title: 'MATHS Quick Problems (Bus)', subject: 'Maths', type: 'light', priority: 'high', notes: '3-5 problems from current topic' },
-                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
-                { time: '18:30-19:30', title: 'GREEK Translation Practice', subject: 'Greek', type: 'study', priority: 'high', notes: 'Unseen passage + grammar exercises (aorist, cases, etc.)' },
-                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, stretch, brief walk' },
-                { time: '20:00-21:00', title: 'BIOLOGY Topic Review', subject: 'Biology', type: 'study', priority: 'low', notes: 'One topic: past questions + mark scheme analysis' },
+                { time: '06:45-07:30', title: 'Light Vocab Practice (Bus)', subject: 'Greek', type: 'light', priority: 'high', notes: 'Greek vocabulary - focus on weak areas' },
+                { time: '17:30-19:00', title: '🏠 Extended Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Flexible arrival time, dinner, relax - NO STUDY' },
+                { time: '19:00-20:00', title: 'GREEK Translation Practice', subject: 'Greek', type: 'study', priority: 'high', notes: 'Unseen passage + grammar exercises (aorist, cases, participles)' },
+                { time: '20:00-20:15', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, stretch' },
+                { time: '20:15-21:00', title: 'GEOGRAPHY Revision', subject: 'Geography', type: 'study', priority: 'medium', notes: 'Case study OR past paper questions' },
                 { time: '21:00-22:00', title: '🎮 Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Relaxation time' }
             ],
             friday: [
-                { time: '06:45-07:30', title: 'PHILOSOPHY Concepts (Bus)', subject: 'Philosophy', type: 'light', priority: 'low', notes: 'Review key arguments, philosophers, or essay structures' },
-                { time: '17:30-18:30', title: '🏠 Sacred Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Dinner, relax, decompress - NO STUDY' },
-                { time: '18:30-19:30', title: 'MATHS Timed Practice', subject: 'Maths', type: 'study', priority: 'high', notes: 'Past paper section OR full paper (timed conditions)' },
-                { time: '19:30-20:00', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Wind-down for weekend' },
-                { time: '20:00-21:00', title: 'PHYSICS Past Questions', subject: 'Physics', type: 'study', priority: 'low', notes: 'One topic: calculations, theory, maintain grade 9' },
+                { time: '06:45-07:30', title: 'Light Reading (Bus)', subject: 'English/Philosophy', type: 'light', priority: 'low', notes: 'English reading OR philosophy concepts review' },
+                { time: '17:30-19:00', title: '🏠 Extended Rest Hour', subject: '', type: 'rest', priority: 'low', notes: 'Flexible arrival time, dinner, relax - NO STUDY' },
+                { time: '19:00-20:30', title: 'HOMEWORK Slot', subject: 'Various', type: 'study', priority: 'medium', notes: 'Any pending homework from the week - 1-1.5 hours' },
+                { time: '20:30-21:00', title: 'BIOLOGY/PHYSICS Quick Review', subject: 'Biology/Physics', type: 'study', priority: 'low', notes: 'Alternate weeks: Biology one week, Physics next - maintain Grade 9s' },
                 { time: '21:00-23:00', title: '🎉 Extended Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Social, gaming, movie - proper Friday night!' }
             ],
             saturday: [
-                { time: '09:30-11:00', title: 'PRIORITY Full Past Paper', subject: 'Chemistry/Maths', type: 'study', priority: 'high', notes: 'Week A: Chemistry full paper | Week B: Maths full paper (TIMED)' },
+                { time: '09:30-11:00', title: 'MATHS Program (Extended)', subject: 'Maths', type: 'study', priority: 'high', notes: 'Continue your specific maths program - problem sets, practice' },
                 { time: '11:00-11:30', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, walk outside, stretch' },
-                { time: '11:30-13:00', title: 'PRIORITY Mark + Improve', subject: 'Chemistry/Maths', type: 'study', priority: 'high', notes: 'Week A: Mark Maths practice | Week B: Mark Chemistry, redo wrong answers' },
+                { time: '11:30-13:00', title: 'CHEMISTRY Full Practice', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Past paper section OR topic drill - mark and review' },
                 { time: '13:00-14:30', title: '🍽️ Lunch + Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Proper break - eat, relax, phone, short walk' },
-                { time: '14:30-16:00', title: 'GREEK/LATIN Translation', subject: 'Greek/Latin', type: 'study', priority: 'high', notes: 'Week A: Greek unseen + grammar | Week B: Latin unseen + vocabulary' },
-                { time: '16:00-17:30', title: '🎮 Protected Downtime', subject: '', type: 'rest', priority: 'low', notes: 'Sports, gaming, social - completely free' },
-                { time: '17:30-18:30', title: 'GEOGRAPHY Revision', subject: 'Geography', type: 'study', priority: 'medium', notes: 'Map skills, case study notes, or past paper practice' },
-                { time: '18:30-22:00', title: '🌙 Evening OFF', subject: '', type: 'rest', priority: 'low', notes: 'Family, social, TV, gaming - NO STUDY' }
+                { time: '14:30-16:00', title: 'GREEK Translation + Grammar', subject: 'Greek', type: 'study', priority: 'high', notes: 'Unseen passages, grammar drills, vocabulary reinforcement' },
+                { time: '16:00-17:00', title: 'HOMEWORK Slot (Weekend)', subject: 'Various', type: 'study', priority: 'medium', notes: 'Complete any homework or use for Latin/Geography' },
+                { time: '17:00-18:00', title: 'LATIN Translation', subject: 'Latin', type: 'study', priority: 'medium', notes: 'Unseen passage + vocabulary review' },
+                { time: '18:00-23:00', title: '👨‍👩‍👧‍👦 Khala Sadduf Visit', subject: '', type: 'rest', priority: 'low', notes: 'Family time - completely study-free' }
             ],
             sunday: [
-                { time: '09:30-11:00', title: 'WEAKEST SUBJECT Focus', subject: 'Greek/Maths/Latin', type: 'study', priority: 'high', notes: 'Current weakest: intensive practice on problem areas' },
+                { time: '09:30-11:00', title: 'PRIORITY Subject Focus', subject: 'Greek/Chemistry', type: 'study', priority: 'high', notes: 'Work on current weakest area - Greek or Chemistry deep dive' },
                 { time: '11:00-11:30', title: '☕ Break', subject: '', type: 'rest', priority: 'low', notes: 'Snack, stretch' },
-                { time: '11:30-13:00', title: 'ENGLISH Essay Practice', subject: 'English', type: 'study', priority: 'medium', notes: 'Language OR Literature: plan essay, analyze extract, quotes practice' },
-                { time: '13:00-14:30', title: '🍽️ Lunch + Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Longer lunch break - walk, social, family' },
-                { time: '14:30-15:30', title: 'LATIN Translation', subject: 'Latin', type: 'study', priority: 'medium', notes: 'One unseen passage + vocabulary review' },
-                { time: '15:30-16:30', title: 'CHEMISTRY Topic Drill', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Focus on one weak topic identified this week' },
-                { time: '16:30-17:00', title: 'PHILOSOPHY Essay Plan', subject: 'Philosophy', type: 'study', priority: 'low', notes: 'One essay title: plan structure, key arguments' },
-                { time: '17:00-18:00', title: '📊 Weekly Reflection', subject: '', type: 'planning', priority: 'low', notes: 'Review subject tracker, plan next week adjustments' },
-                { time: '18:00-22:00', title: '🌙 Sunday Evening OFF', subject: '', type: 'rest', priority: 'low', notes: 'STRICTLY NO STUDY - family, rest, prepare for week' }
+                { time: '11:30-13:00', title: 'MATHS Program (Weekend)', subject: 'Maths', type: 'study', priority: 'high', notes: 'Final maths program session for the week - review and consolidate' },
+                { time: '13:00-14:30', title: '🍽️ Lunch + Free Time', subject: '', type: 'rest', priority: 'low', notes: 'Longer lunch break - walk, family time' },
+                { time: '14:30-15:30', title: 'CHEMISTRY Topic Drill', subject: 'Chemistry', type: 'study', priority: 'high', notes: 'Focus on one specific weak topic identified this week' },
+                { time: '15:30-16:30', title: 'GEOGRAPHY Case Study', subject: 'Geography', type: 'study', priority: 'medium', notes: 'One complete case study OR map skills practice' },
+                { time: '16:30-17:30', title: 'PHILOSOPHY Essay + Reflection', subject: 'Philosophy', type: 'study', priority: 'low', notes: 'Essay plan OR weekly reflection and planning for next week' },
+                { time: '17:30-18:00', title: '📊 Weekly Review', subject: '', type: 'planning', priority: 'low', notes: 'Review subject tracker, celebrate wins, plan adjustments' },
+                { time: '18:00-23:00', title: '👨‍👩‍👧‍👦 Amaji House Visit', subject: '', type: 'rest', priority: 'low', notes: 'Family time - completely study-free' }
             ]
         };
 
-        // Subject tracking data
+        // Subject tracking data - Updated targets
         const subjectTargets = {
-            'Greek': { current: 5, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
-            'Maths': { current: 6, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
-            'Chemistry': { current: 7, target: 9, priority: 'high', weeklyGoal: 5, sessions: [] },
-            'Geography': { current: 7, target: 9, priority: 'medium', weeklyGoal: 3, sessions: [] },
-            'Latin': { current: 7, target: 9, priority: 'medium', weeklyGoal: 3, sessions: [] },
-            'English': { current: 8, target: 8, priority: 'medium', weeklyGoal: 3, sessions: [] },
-            'Biology': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] },
-            'Physics': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] },
-            'Philosophy': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] }
+            'Greek': { current: 5, target: 9, priority: 'high', weeklyGoal: 4, sessions: [] },
+            'Maths': { current: 6, target: 9, priority: 'high', weeklyGoal: 4, sessions: [], notes: 'Includes dedicated program time' },
+            'Chemistry': { current: 7, target: 9, priority: 'high', weeklyGoal: 4, sessions: [] },
+            'Geography': { current: 7, target: 9, priority: 'medium', weeklyGoal: 2, sessions: [] },
+            'Latin': { current: 7, target: 9, priority: 'medium', weeklyGoal: 2, sessions: [] },
+            'English': { current: 8, target: 8, priority: 'medium', weeklyGoal: 2, sessions: [], notes: 'Reading + homework slot' },
+            'Biology': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [], notes: 'Alternates with Physics' },
+            'Physics': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [], notes: 'Alternates with Biology' },
+            'Philosophy': { current: 9, target: 9, priority: 'low', weeklyGoal: 1, sessions: [] },
+            'Homework': { current: 0, target: 0, priority: 'medium', weeklyGoal: 3, sessions: [], notes: 'Various subjects as needed' }
         };
 
         // Get today's day
@@ -1058,7 +1067,8 @@
                 'English': 0,
                 'Biology': 0,
                 'Physics': 0,
-                'Philosophy': 0
+                'Philosophy': 0,
+                'Homework': 0
             };
             
             days.forEach(day => {
@@ -1069,12 +1079,15 @@
                         if (isSessionCompleted(sessionId)) {
                             // Handle combined subjects in session titles
                             if (session.subject.includes('/')) {
-                                // Split subjects like "Chemistry/Maths"
+                                // Split subjects like "Chemistry/Maths" or "English/Greek"
                                 session.subject.split('/').forEach(sub => {
                                     if (counts[sub.trim()] !== undefined) {
                                         counts[sub.trim()]++;
                                     }
                                 });
+                            } else if (session.subject === 'Various') {
+                                // Homework slot
+                                counts['Homework']++;
                             } else if (counts[session.subject]) {
                                 counts[session.subject]++;
                             }
@@ -1090,15 +1103,16 @@
         function updateSubjectCounts() {
             const counts = calculateSubjectCounts();
             
-            document.getElementById('greek-count').textContent = `${counts.Greek}/5`;
-            document.getElementById('maths-count').textContent = `${counts.Maths}/5`;
-            document.getElementById('chemistry-count').textContent = `${counts.Chemistry}/5`;
-            document.getElementById('geography-count').textContent = `${counts.Geography}/3`;
-            document.getElementById('latin-count').textContent = `${counts.Latin}/3`;
-            document.getElementById('english-count').textContent = `${counts.English}/3`;
+            document.getElementById('greek-count').textContent = `${counts.Greek}/4`;
+            document.getElementById('maths-count').textContent = `${counts.Maths}/4`;
+            document.getElementById('chemistry-count').textContent = `${counts.Chemistry}/4`;
+            document.getElementById('geography-count').textContent = `${counts.Geography}/2`;
+            document.getElementById('latin-count').textContent = `${counts.Latin}/2`;
+            document.getElementById('english-count').textContent = `${counts.English}/2`;
             document.getElementById('biology-count').textContent = `${counts.Biology}/1`;
             document.getElementById('physics-count').textContent = `${counts.Physics}/1`;
             document.getElementById('philosophy-count').textContent = `${counts.Philosophy}/1`;
+            document.getElementById('homework-count').textContent = `${counts.Homework}/3`;
         }
 
         // Render subject tracker grid
